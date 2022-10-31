@@ -7,6 +7,7 @@ import { NavBar } from "./components/Navbar";
 import { Section } from "./components/Section";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
+import { SearchBar } from "./components/SearchBar";
 
 
 export const PokemonApp = () => {
@@ -24,7 +25,7 @@ export const PokemonApp = () => {
   return (
     <>
       <NavBar />
-      <hr />
+      
       <span>Loading:{isloading ? "true" : "false"}</span>
       <Header />
       <button disabled={isloading} onClick={() => dispatch(getPokemons( page +1))}>
@@ -33,6 +34,7 @@ export const PokemonApp = () => {
       <button disabled={isloading} onClick={() => dispatch(getPokemons( page -1))}>
         Back
       </button>
+      
       <Section />
       <Footer />
     </>
