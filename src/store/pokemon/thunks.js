@@ -34,9 +34,10 @@ export const searchCards = (q = '') => {
   return async (dispatch, getState) => {
     dispatch(startLoadingPokemons());
     let q = ''
-    pokemon.card.where({ q: `name:${q}` })
+    pokemon.card.where({ q: `name:${ q }` })
       .then(result => {
         console.log(result.data[0].name) // "Blastoise"
+        
       })
   };
 };

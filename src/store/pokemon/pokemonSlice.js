@@ -16,9 +16,12 @@ export const pokemonSlice = createSlice({
       state.page = action.payload.page;
       state.pokemons = action.payload.pokemons;
     },
-    
+    searchCardsByName: (state,action)=>{
+      state.isloading = false;
+
+    }
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { startLoadingPokemons, setPokemons, } = pokemonSlice.actions;
+export const { startLoadingPokemons, setPokemons,searchCardsByName } = pokemonSlice.actions;
