@@ -1,4 +1,4 @@
-import { setPokemons, startLoadingPokemons } from "./pokemonSlice";
+import { setPokemons, startLoadingPokemons,searchCardsByName } from "./pokemonSlice";
 import pokemon from 'pokemontcgsdk'
 
 
@@ -18,6 +18,7 @@ export const getPokemons = (page = 1) => {
 
     pokemon.card.where({ pageSize: 20, page: page })
       .then(result => {
+
         const data = result.data
         console.log(page)
 
@@ -30,14 +31,19 @@ export const getPokemons = (page = 1) => {
 
   };
 };
-export const searchCards = (q = '') => {
+export const searchCards = (q = '',page) => {
   return async (dispatch, getState) => {
+
     dispatch(startLoadingPokemons());
-    let q = ''
+
+    
     pokemon.card.where({ q: `name:${ q }` })
+    
       .then(result => {
-        console.log(result.data[0].name) // "Blastoise"
-        
+        console.log(result)
+        const data = result.data
+        console.log(result.data[0].name) 
+        dispatch(setPokemons({pokemons: data,page:page}))
       })
   };
 };

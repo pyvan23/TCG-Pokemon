@@ -18,7 +18,7 @@ export const pokemonSlice = createSlice({
     },
     searchCardsByName: (state,action)=>{
       state.isloading = false;
-
+      state.pokemons = action.payload.pokemons;
     }
   },
 });

@@ -1,6 +1,28 @@
-import { SearchBar } from "./SearchBar";
+import { useDispatch } from "react-redux";
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useForm } from "../hooks/useForm";
+import { searchCards } from "../store/pokemon/thunks";
+import queryString from 'query-string';
+
 
 export const Header = () => {
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const { q = '' } = queryString.parse(location.search);
+  const { searchText, onInputChange } = useForm({ searchText: q });
+
+
+  const onSearchSubmit = (event) => {
+
+    event.preventDefault();
+
+    // if(searchText.trim().length<=1)return;
+    navigate(`?q=${searchText}`)
+  };
+
   return (
     <header className="bg-dark py-5">
       <div className="container px-4 px-lg-5 my-5">
@@ -9,9 +31,24 @@ export const Header = () => {
           <p className="lead fw-normal text-white-50 mb-0">Just looking here</p>
         </div>
         <div className="input-group">
-        <SearchBar/>
+          <form onSubmit={onSearchSubmit}>
+            <input
+              type="text"
+              placeholder="TCG"
+              className="form-control"
+              name="searchText"
+              autoComplete="off"
+              value={searchText}
+              onChange={onInputChange}
+            />
+            <button onClick={() => { dispatch(searchCards(q)) }} className="btn btn-outline-primary mt-3">Search</button>
+          </form>
+
+
+
+
         </div>
       </div>
     </header>
   );
-};
+  }
