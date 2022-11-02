@@ -1,27 +1,30 @@
 import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from 'react-router-dom'
-import { useForm } from "../hooks/useForm";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { searchCards } from "../store/pokemon/thunks";
 import queryString from 'query-string';
 
 
 export const Header = () => {
+const location = useLocation();
+const navigate = useNavigate();
+const dispatch = useDispatch();                 
+  
 
-  const dispatch = useDispatch()
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const { q = '' } = queryString.parse(location.search);
-  const { searchText, onInputChange } = useForm({ searchText: q });
+const {q =''} = queryString.parse(location.search);
+const { register, handleSubmit, watch, formState: { errors } } = useForm({ searchText: q });
 
 
-  const onSearchSubmit = (event) => {
 
-    event.preventDefault();
+const onSubmit = (data) =>{
+  
+  navigate(`?q=${searchText}`)
+} 
 
-    // if(searchText.trim().length<=1)return;
-    navigate(`?q=${searchText}`)
-  };
+  
+  // if(searchText.trim().length<=1)return;
+
+
 
   return (
     <header className="bg-dark py-5">
@@ -31,24 +34,13 @@ export const Header = () => {
           <p className="lead fw-normal text-white-50 mb-0">Just looking here</p>
         </div>
         <div className="input-group">
-          <form onSubmit={onSearchSubmit}>
-            <input
-              type="text"
-              placeholder="TCG"
-              className="form-control"
-              name="searchText"
-              autoComplete="off"
-              value={searchText}
-              onChange={onInputChange}
-            />
-            <button onClick={() => { dispatch(searchCards(q)) }} className="btn btn-outline-primary mt-3">Search</button>
-          </form>
-
-
-
-
+        <form onSubmit={handleSubmit(onSubmit)}
+        >
+        <input value={searchText}{...register("exampleRequired", { required: true })} />
+       <button>search</button>
+        </form>
         </div>
       </div>
     </header>
   );
-  }
+};

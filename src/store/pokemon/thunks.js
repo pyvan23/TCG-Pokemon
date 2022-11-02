@@ -31,7 +31,7 @@ export const getPokemons = (page = 1) => {
 
   };
 };
-export const searchCards = (q = '',page) => {
+export const searchCards = (q = '') => {
   return async (dispatch, getState) => {
 
     dispatch(startLoadingPokemons());
@@ -42,8 +42,8 @@ export const searchCards = (q = '',page) => {
       .then(result => {
         console.log(result)
         const data = result.data
-        console.log(result.data[0].name) 
-        dispatch(setPokemons({pokemons: data,page:page}))
+        console.log(data) 
+        dispatch(searchCardsByName({pokemons: data}))
       })
   };
 };
