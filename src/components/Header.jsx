@@ -9,7 +9,6 @@ import { useEffect } from "react";
 
 export const Header = () => {
 
-  const { isloading, page, pokemons } = useSelector((state) => state.pokemon);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -21,6 +20,11 @@ export const Header = () => {
 
   const { searchText, onInputChange, onResetForm } = useForm({ searchText: q });
 
+  const search = () => {
+    dispatch(searchCards(q))
+
+  }
+  
 
 
   const onSearchSubmit = (event) => {
@@ -32,9 +36,7 @@ export const Header = () => {
     console.log(searchText)
   };
 
-  useEffect(() => {
-    dispatch(searchCards(q))
- }, [])
+  
 
  
   return (
@@ -58,7 +60,7 @@ export const Header = () => {
               onReset={onResetForm}
 
             />
-            <button onClick={ searchCards() } className="btn btn-outline-primary mt-3">Search</button>
+            <button onClick={()=>{search(q)}} className="btn btn-outline-primary mt-3">Search</button>
           </form>
         </div>
       </div>

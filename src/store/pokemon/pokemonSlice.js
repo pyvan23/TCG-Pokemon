@@ -6,6 +6,7 @@ export const pokemonSlice = createSlice({
     page: 1,
     pokemons: [],
     isloading: false,
+    q:''
     
   },
   reducers: {
@@ -19,6 +20,7 @@ export const pokemonSlice = createSlice({
     },
     searchCardsByName: (state,action)=>{
       state.isloading = false;
+      state.q = state.q 
       state.pokemons = action.payload.pokemons;
     }
   },
