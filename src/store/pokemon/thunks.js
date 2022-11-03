@@ -3,7 +3,7 @@ import pokemon from 'pokemontcgsdk'
 
 
 //thunk es una funcion que regresa una tarea asyncrona
-export const getPokemons = (page = 1) => {
+export const getPokemons = (page=1,q='') => {
   return async (dispatch, getState) => {
     dispatch(startLoadingPokemons());
 
@@ -26,14 +26,18 @@ export const getPokemons = (page = 1) => {
         dispatch(setPokemons({ pokemons: data, page: page }))
       })
 
-
+       
+       
+        
+      
+  
 
 
   };
 };
 export const searchCards = (q='') => {
   return async (dispatch, getState) => {
-
+    
     dispatch(startLoadingPokemons());
     console.log(q)
     

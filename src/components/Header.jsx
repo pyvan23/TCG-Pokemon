@@ -4,29 +4,39 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { searchCards } from "../store/pokemon/thunks";
 import queryString from 'query-string';
 import { useForm } from "../hooks/useForm";
+import { useEffect } from "react";
 
 
 export const Header = () => {
 
   const { isloading, page, pokemons } = useSelector((state) => state.pokemon);
+
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  
-  
-  
-  const {q =''} = queryString.parse(location.search);
-  
-  const { searchText, onInputChange } = useForm({ searchText: q });
+
+
+
+  const { q = '' } = queryString.parse(location.search);
+
+  const { searchText, onInputChange, onResetForm } = useForm({ searchText: q });
+
+
 
   const onSearchSubmit = (event) => {
 
     event.preventDefault();
-    
-     if(searchText.trim().length<=1)return;
+
+    if (searchText.trim().length <= 1) return;
     navigate(`?q=${searchText}`)
+    console.log(searchText)
   };
 
+  useEffect(() => {
+    dispatch(searchCards(q))
+ }, [])
+
+ 
   return (
     <header className="bg-dark py-5">
       <div className="container px-4 px-lg-5 my-5">
@@ -35,8 +45,9 @@ export const Header = () => {
           <p className="lead fw-normal text-white-50 mb-0">Just looking here</p>
         </div>
         <div className="input-group">
-        <form onSubmit={onSearchSubmit}>
+          <form onSubmit={onSearchSubmit}>
             <input
+
               type="text"
               placeholder="TCG"
               className="form-control"
@@ -44,8 +55,10 @@ export const Header = () => {
               autoComplete="off"
               value={searchText}
               onChange={onInputChange}
+              onReset={onResetForm}
+
             />
-            <button  onClick={()=>dispatch(searchCards(q))} className="btn btn-outline-primary mt-3">Search</button>
+            <button onClick={ searchCards() } className="btn btn-outline-primary mt-3">Search</button>
           </form>
         </div>
       </div>
