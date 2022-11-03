@@ -5,7 +5,7 @@ import { getPokemons } from "../store/pokemon/thunks";
 export const Section = () => {
   const dispatch = useDispatch();
 
-  const { isLoading, pokemons, filterCardsState } = useSelector(
+  const { isLoading, pokemons,  } = useSelector(
     (state) => state.pokemon
   );
 

@@ -31,11 +31,11 @@ export const getPokemons = (page = 1) => {
 
   };
 };
-export const searchCards = (q = '') => {
+export const searchCards = (q='') => {
   return async (dispatch, getState) => {
 
     dispatch(startLoadingPokemons());
-
+    console.log(q)
     
     pokemon.card.where({ q: `name:${ q }` })
     
@@ -43,7 +43,7 @@ export const searchCards = (q = '') => {
         console.log(result)
         const data = result.data
         console.log(data) 
-        dispatch(searchCardsByName({pokemons: data}))
+        dispatch(searchCardsByName({ pokemons: data}))
       })
   };
 };

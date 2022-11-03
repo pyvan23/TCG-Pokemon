@@ -1,30 +1,31 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+
 import { searchCards } from "../store/pokemon/thunks";
 import queryString from 'query-string';
+import { useForm } from "../hooks/useForm";
 
 
 export const Header = () => {
-const location = useLocation();
-const navigate = useNavigate();
-const dispatch = useDispatch();                 
+
+  const { isloading, page, pokemons } = useSelector((state) => state.pokemon);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
   
-
-const {q =''} = queryString.parse(location.search);
-const { register, handleSubmit, watch, formState: { errors } } = useForm({ searchText: q });
-
-
-
-const onSubmit = (data) =>{
   
-  navigate(`?q=${searchText}`)
-} 
-
   
-  // if(searchText.trim().length<=1)return;
+  const {q =''} = queryString.parse(location.search);
+  
+  const { searchText, onInputChange } = useForm({ searchText: q });
 
+  const onSearchSubmit = (event) => {
 
+    event.preventDefault();
+    
+     if(searchText.trim().length<=1)return;
+    navigate(`?q=${searchText}`)
+  };
 
   return (
     <header className="bg-dark py-5">
@@ -34,11 +35,18 @@ const onSubmit = (data) =>{
           <p className="lead fw-normal text-white-50 mb-0">Just looking here</p>
         </div>
         <div className="input-group">
-        <form onSubmit={handleSubmit(onSubmit)}
-        >
-        <input value={searchText}{...register("exampleRequired", { required: true })} />
-       <button>search</button>
-        </form>
+        <form onSubmit={onSearchSubmit}>
+            <input
+              type="text"
+              placeholder="TCG"
+              className="form-control"
+              name="searchText"
+              autoComplete="off"
+              value={searchText}
+              onChange={onInputChange}
+            />
+            <button  onClick={()=>dispatch(searchCards(q))} className="btn btn-outline-primary mt-3">Search</button>
+          </form>
         </div>
       </div>
     </header>
