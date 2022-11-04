@@ -1,9 +1,9 @@
-import { setPokemons, startLoadingPokemons,searchCardsByName } from "./pokemonSlice";
+import { setPokemons, startLoadingPokemons, searchCardsByName } from "./pokemonSlice";
 import pokemon from 'pokemontcgsdk'
 
 
 //thunk es una funcion que regresa una tarea asyncrona
-export const getPokemons = (page=1,q='') => {
+export const getPokemons = (page = 1) => {
   return async (dispatch, getState) => {
     dispatch(startLoadingPokemons());
 
@@ -26,28 +26,32 @@ export const getPokemons = (page=1,q='') => {
         dispatch(setPokemons({ pokemons: data, page: page }))
       })
 
-       
-       
-        
-      
-  
+
+
+
+
+
 
 
   };
 };
 export const searchCards = (q='') => {
   return async (dispatch, getState) => {
-    
+
     dispatch(startLoadingPokemons());
-    console.log(q)
-    
-    pokemon.card.where({ q: `name:${ q }` })
-    
+
+    pokemon.card.where({ q: `name:${q}` })
+
+
       .then(result => {
+
         console.log(result)
         const data = result.data
-        console.log(data) 
-        dispatch(searchCardsByName({ pokemons: data}))
+        console.log(data)
+
+        dispatch(searchCardsByName({
+          pokemons: data
+        }))
       })
   };
 };

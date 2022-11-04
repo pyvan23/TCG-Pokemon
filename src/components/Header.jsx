@@ -18,24 +18,27 @@ export const Header = () => {
 
   const { q = '' } = queryString.parse(location.search);
 
-  const { searchText, onInputChange, onResetForm } = useForm({ searchText: q });
+  const { searchText, onInputChange, onResetForm, } = useForm({ searchText: q });
 
-  const search = () => {
-    dispatch(searchCards(q))
-
-  }
+  // dispatch(searchCards(q))
   
-
-
+  
+  
+  
   const onSearchSubmit = (event) => {
-
+    
     event.preventDefault();
-
+    
     if (searchText.trim().length <= 1) return;
     navigate(`?q=${searchText}`)
     console.log(searchText)
   };
-
+  
+  useEffect(() => {
+    dispatch(searchCards)
+  }, [onSearchSubmit])
+  
+  
   
 
  
@@ -49,7 +52,7 @@ export const Header = () => {
         <div className="input-group">
           <form onSubmit={onSearchSubmit}>
             <input
-
+              
               type="text"
               placeholder="TCG"
               className="form-control"
@@ -57,10 +60,11 @@ export const Header = () => {
               autoComplete="off"
               value={searchText}
               onChange={onInputChange}
-              onReset={onResetForm}
+              
+              
 
             />
-            <button onClick={()=>{search(q)}} className="btn btn-outline-primary mt-3">Search</button>
+            <button type="reset" onClick={()=>{dispatch(searchCards(q))}}  className="btn btn-outline-primary mt-3">Search</button>
           </form>
         </div>
       </div>
