@@ -5,7 +5,7 @@ import { getPokemons } from "../store/pokemon/thunks";
 export const Section = () => {
   const dispatch = useDispatch();
 
-  const { isLoading, pokemons,  } = useSelector(
+  const {isloading , pokemons, page } = useSelector(
     (state) => state.pokemon
   );
 
@@ -13,12 +13,16 @@ export const Section = () => {
     dispatch(getPokemons());
   }, []);
 
-  // useEffect(() => {
-  //   dispatch(filterPokemons());
-  // }, []);
-
+ 
   return (
     <>
+     <span>Loading:{isloading ? "true" : "false"}</span>
+     <button disabled={isloading} onClick={() => dispatch(getPokemons( page +1))}>
+        Next
+      </button>
+      <button disabled={isloading} onClick={() => dispatch(getPokemons( page -1))}>
+        Back
+      </button>
       <section className="py-5">
         <div className="container px-4 px-lg-5 mt-5">
           <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">

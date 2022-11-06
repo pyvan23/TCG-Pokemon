@@ -2,19 +2,24 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import pokemon from "pokemontcgsdk";
-import { getPokemons } from "./store/pokemon/thunks";
+import { getPokemons, searchCards } from "./store/pokemon/thunks";
 import { NavBar } from "./components/Navbar";
 import { Section } from "./components/Section";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
+import { SearchBar } from "./components/SearchBar";
+import { AppRouter } from "./router/AppRouter";
 
 
 
 export const PokemonApp = () => {
   const dispatch = useDispatch();
- 
 
-  const { isloading, page, pokemons } = useSelector((state) => state.pokemon);
+
+  useEffect(() => {
+    dispatch(searchCards())
+  }, [])
+
 
   useEffect(() => {
     dispatch(getPokemons());
@@ -24,19 +29,7 @@ export const PokemonApp = () => {
 
   return (
     <>
-      <NavBar />
-      
-      <span>Loading:{isloading ? "true" : "false"}</span>
-      <Header />
-      <button disabled={isloading} onClick={() => dispatch(getPokemons( page +1))}>
-        Next
-      </button>
-      <button disabled={isloading} onClick={() => dispatch(getPokemons( page -1))}>
-        Back
-      </button>
-      
-      <Section />
-      <Footer />
+      <AppRouter />
     </>
   );
 };

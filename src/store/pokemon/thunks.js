@@ -25,29 +25,25 @@ export const getPokemons = (page = 1) => {
 
         dispatch(setPokemons({ pokemons: data, page: page }))
       })
-
-
-
-
-
-
-
+      
 
   };
 };
-export const searchCards = (q='') => {
+export const searchCards = (q = '') => {
   return async (dispatch, getState) => {
 
     dispatch(startLoadingPokemons());
 
+
+
     pokemon.card.where({ q: `name:${q}` })
+
 
 
       .then(result => {
 
         console.log(result)
         const data = result.data
-        console.log(data)
 
         dispatch(searchCardsByName({
           pokemons: data
