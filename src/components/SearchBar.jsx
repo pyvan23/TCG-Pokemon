@@ -53,17 +53,7 @@ export const SearchBar = () => {
       />
       <button className="btn btn-outline-primary mt-3">Search</button>
     </form>
-       {
-        (q.length > 2)
-         ?(<Section/>)
-      
-         
-        : (
-
-          <div className="alert alert-danger">No results <b>{q}</b></div>
-        )
-      }
-      
+     
     </>
         
 

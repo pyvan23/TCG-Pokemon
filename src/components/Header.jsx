@@ -14,7 +14,7 @@ export const Header = () => {
           <h1 className="display-4 fw-bolder">Pokemon TCG Shop</h1>
           <p className="lead fw-normal text-white-50 mb-0">Just looking here</p>
         </div>
-    <SearchBar/>
+    
       </div>
     </header>
   );

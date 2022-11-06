@@ -13,19 +13,8 @@ import { AppRouter } from "./router/AppRouter";
 
 
 export const PokemonApp = () => {
-  const dispatch = useDispatch();
-
-
-  useEffect(() => {
-    dispatch(searchCards())
-  }, [])
-
-
-  useEffect(() => {
-    dispatch(getPokemons());
-  }, []);
-
-  //esta momorizado,no es necesario ponerlo como una dependencia en el useeffect
+  
+  
 
   return (
     <>
