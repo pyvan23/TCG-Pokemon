@@ -29,11 +29,16 @@ export const SearchBar = () => {
     
   };
   
-  useEffect(() => {
-    
-    const pokeCardFilter = dispatch(searchCards(q))
+useEffect(() => {
+  
+  dispatch(searchCards(q))
 
-  }, [])
+  
+}, [])
+
+    
+
+
   
   
 

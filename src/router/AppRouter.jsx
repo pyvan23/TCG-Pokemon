@@ -1,18 +1,13 @@
 import React from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
-import { IndexPage } from "../pages/IndexPage";
+import { Route, Routes } from "react-router-dom";
 import { PokemonsCardsIndex } from "../routes/PokemonsCardsIndex";
 
 export const AppRouter = () => {
   return (
     <>
-       <Routes>
-        <Route
-          path="*"
-          element={
-            <PokemonsCardsIndex/>
-          }/>
-         </Routes>
+      <Routes>
+        <Route path="*" element={<PokemonsCardsIndex />} />
+      </Routes>
     </>
   );
 };
